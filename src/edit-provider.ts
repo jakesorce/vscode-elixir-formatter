@@ -5,7 +5,9 @@ import {
   TextDocument,
   FormattingOptions,
   CancellationToken,
-  TextEdit
+  TextEdit,
+  window,
+  Position
 } from "vscode";
 import cp = require("child_process");
 
@@ -14,9 +16,9 @@ function fullDocumentRange(document: TextDocument): Range {
   return new Range(0, 0, lastLineId, document.lineAt(lastLineId).text.length);
 }
 
-function format(document: TextDocument): Promise<string> {
+function format(document: TextDocument): Promise<TextEdit[]> {
   return new Promise((resolve, reject) => {
-    const cmd = `mix format ${document.fileName} --print`;
+    const cmd = `mix format ${document.fileName}`;
     const cwd = workspace.rootPath ? workspace.rootPath : "";
     cp.exec(
       cmd,
@@ -24,7 +26,13 @@ function format(document: TextDocument): Promise<string> {
         cwd
       },
       function(error, stdout, stderr) {
-        return resolve(stdout);
+        if (error !== null) {
+          const message = `Cannot format due to syntax errors.: ${stderr}`;
+          window.showErrorMessage(message);
+          return reject(message);
+        } else {
+          return [TextEdit.replace(fullDocumentRange(document), stdout)];
+        }
       }
     );
   });
@@ -36,9 +44,9 @@ export default class PrettierEditProvider
     document: TextDocument,
     options: FormattingOptions,
     token: CancellationToken
-  ): Promise<TextEdit[]> {
-    return format(document).then(newText => [
-      TextEdit.replace(fullDocumentRange(document), newText)
-    ]);
+  ): Thenable<TextEdit[]> {
+    return document.save().then(() => {
+      return format(document);
+    });
   }
 }

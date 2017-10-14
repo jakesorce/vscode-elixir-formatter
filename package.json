@@ -2,7 +2,7 @@
   "name": "vscode-elixir-formatter",
   "displayName": "vscode-elixir-formatter",
   "description": "Elixir code formatting using Elixir 1.6 Code Formatter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "sammkj",
   "license": "MIT",
   "engines": {
