@@ -1,26 +1,15 @@
-# vscode-exfmt README
+# vscode-elixir-formatter README
 
-Format your elixir code automatically
+Format your elixir code automatically using Elixir 1.6 Code Formatter.
 
 ## Features
 
-Uses `exfmt` to format your elixir code automatically
+Uses `mix format` to format your elixir code automatically.
 
 ## Requirements
 
-* Install [exfmt](https://github.com/lpil/exfmt) in the `mix` project you're working on.
+* Install Elixir 1.6
 
+## License
 
-## Known Issues
-
-`exfmt` is still in alpha and will not work for all formatting scenarios
-
-## Release Notes
-
-
-## 0.0.2
-
-Support for error messages
-## 0.0.1
-
-Initial alpha release
+MIT

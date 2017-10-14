@@ -4,6 +4,7 @@
   "description": "Elixir code formatting using Elixir 1.6 Code Formatter",
   "version": "0.1.0",
   "publisher": "sammkj",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.12.0"
   },
